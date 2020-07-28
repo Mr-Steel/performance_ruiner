@@ -15,7 +15,8 @@ public class ListBenchmark {
     @State(Scope.Benchmark)
     public static class MyState {
 
-        List<Integer> arrayList = new FastList<>();
+        List<Integer> arrayList = new ArrayList<>();
+        List<Integer> fastList = new FastList<>();
         List<Integer> linkedList = new LinkedList<>();
 
         @Setup(Level.Invocation)
@@ -25,6 +26,12 @@ public class ListBenchmark {
                     .limit(100_000)
                     .boxed()
                     .collect(Collectors.toCollection(ArrayList::new));
+
+            fastList.clear();
+            fastList = new Random().ints(0, 100)
+                    .limit(100_000)
+                    .boxed()
+                    .collect(Collectors.toCollection(FastList::new));
 
             linkedList.clear();
             linkedList = new Random().ints(0, 100)
@@ -54,6 +61,26 @@ public class ListBenchmark {
             }
         }
         return myState.arrayList.size();
+    }
+
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @Fork(1)
+    @Warmup(iterations = ITERATIONS_WARMUP)
+    @Measurement(iterations = ITERATIONS_MEASURE)
+    @BenchmarkMode(Mode.AverageTime)
+    public Integer testAddRemoveFastList(MyState myState) {
+        List<Integer> list = myState.fastList;
+        for (int i = 0; i < list.size(); i++) {
+            Integer next = list.get(i);
+            if (next % 3 == 0) {
+                list.remove(i);
+            }
+            if (next % 5 == 0) {
+                list.add(next / 5);
+            }
+        }
+        return myState.fastList.size();
     }
 
     @Benchmark
