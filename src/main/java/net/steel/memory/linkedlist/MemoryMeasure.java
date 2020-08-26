@@ -9,7 +9,7 @@ import java.util.List;
 public class MemoryMeasure {
 
     private static int initialCapacity = 16;
-    private static int targetCapacity = 16;
+    private static int targetCapacity = 250;
 
     public static void main(String[] args) {
         MemoryMeter meter = new MemoryMeter();
@@ -24,11 +24,17 @@ public class MemoryMeasure {
         }
 
         long measureIntegerArrayList = meter.measure(integerArrayList);
+        long measureDeepIntegerArrayList = meter.measureDeep(integerArrayList);
+
         long measureIntegerLinkedList = meter.measure(integerLinkedList);
+        long measureDeepIntegerLinkedList = meter.measureDeep(integerLinkedList);
 
 
-        System.out.println("ArrayList size : " + measureIntegerArrayList);
-        System.out.println("LinkedList size: " + measureIntegerLinkedList);
+        System.out.println("ArrayList size norm: " + measureIntegerArrayList);
+        System.out.println("ArrayList size deep: " + measureDeepIntegerArrayList);
+
+        System.out.println("LinkedList size norm: " + measureIntegerLinkedList);
+        System.out.println("LinkedList size deep: " + measureDeepIntegerLinkedList);
     }
 
 }
