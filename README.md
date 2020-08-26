@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/Mr-Steel/performance_ruiner.png?branch=master)](https://travis-ci.org/Mr-Steel/performance_ruiner)
+[![Build Status](https://travis-ci.org/Mr-Steel/performance_ruiner.png?branch=master)](https://travis-ci.org/Mr-Steel/performance_ruiner) 
+[![License](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Twitter Follow](https://img.shields.io/twitter/follow/Mr__Steel.svg?label=Follow%20%40Mr__Steel&style=social)](https://twitter.com/Mr__Steel)
+
 # A showcase for the talk about "How to ruin your Application Performance"
 This project contains in several packages samples which show the different runtime performance mostly as JMH benchmarks.
 
