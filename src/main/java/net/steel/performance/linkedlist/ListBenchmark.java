@@ -3,17 +3,25 @@ package net.steel.performance.linkedlist;
 import org.eclipse.collections.impl.list.mutable.FastList;
 import org.openjdk.jmh.annotations.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class ListBenchmark {
 
-    private static final int ITERATIONS_WARMUP  = 5;
-    private static final int ITERATIONS_MEASURE = 10;
+    private static final int ITERATIONS_WARMUP  = 2;
+    private static final int ITERATIONS_MEASURE = 3;
+
 
     @State(Scope.Benchmark)
     public static class MyState {
+
+        @Param({"10", "100", "1000"})
+        private long size;
 
         List<Integer> arrayList = new ArrayList<>();
         List<Integer> fastList = new FastList<>();
@@ -23,19 +31,19 @@ public class ListBenchmark {
         public void createMap() {
             arrayList.clear();
             arrayList = new Random().ints(0, 100)
-                    .limit(100_000)
+                    .limit(size)
                     .boxed()
                     .collect(Collectors.toCollection(ArrayList::new));
 
             fastList.clear();
             fastList = new Random().ints(0, 100)
-                    .limit(100_000)
+                    .limit(size)
                     .boxed()
                     .collect(Collectors.toCollection(FastList::new));
 
             linkedList.clear();
             linkedList = new Random().ints(0, 100)
-                    .limit(100_000)
+                    .limit(size)
                     .boxed()
                     .collect(Collectors.toCollection(LinkedList::new));
         }
