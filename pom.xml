@@ -12,8 +12,8 @@
     <description>A small suite for the JAX 2020</description>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jmh.version>1.25.1</jmh.version>
         <eclipse.collections.version>10.4.0</eclipse.collections.version>
