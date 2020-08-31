@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Example that shows costs for polymorphism and complex object hiearchy.
+ * Example that shows costs for polymorphism and complex object hierarchy.
  *
  * The object hierarchy consists of geometric forms that should compute a surface.
  */
