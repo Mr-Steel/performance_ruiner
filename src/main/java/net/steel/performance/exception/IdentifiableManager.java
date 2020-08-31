@@ -1,5 +1,8 @@
 package net.steel.performance.exception;
 
+import org.eclipse.collections.api.map.primitive.MutableLongObjectMap;
+import org.eclipse.collections.impl.map.mutable.primitive.LongObjectHashMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,11 +16,13 @@ public class IdentifiableManager {
     private static IdentifiableManager identifiableManager = new IdentifiableManager();
 
     private Map<Long, Object> identifiableObjectMap = new HashMap<>();
+    private MutableLongObjectMap primitiveMap = new LongObjectHashMap();
 
     private IdentifiableManager() {
         for (long i = 0; i < ExceptionDrivenBenchmark.LOOP_SIZE; i++) {
             if (i%2 == 0) {
                 identifiableObjectMap.put(i, new Object());
+                primitiveMap.put(i, new Object());
             }
         }
     }
@@ -52,6 +57,14 @@ public class IdentifiableManager {
 
     public boolean containsIdentifiable_2(Long objectID) {
         if (identifiableObjectMap.containsKey(objectID)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean containsIdentifiable_primitive(long objectID) {
+        if (primitiveMap.containsKey(objectID)) {
             return true;
         } else {
             return false;

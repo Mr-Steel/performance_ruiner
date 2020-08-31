@@ -63,6 +63,16 @@ public class ExceptionDrivenBenchmark {
         return readKeysFromMissingObjects_Fixed_2(myState.input);
     }
 
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @Fork(1)
+    @Warmup(iterations = ITERATIONS_WARMUP)
+    @Measurement(iterations = ITERATIONS_MEASURE)
+    @BenchmarkMode(Mode.AverageTime)
+    public List<String> logicExceptionDriven_Fixed_Primitive(MyState myState) {
+        return readKeysFromMissingObjects_Fixed_Prim(myState.input);
+    }
+
     /**
      * The exception driven method implementation.
      *
@@ -124,6 +134,23 @@ public class ExceptionDrivenBenchmark {
         }
         return resultSet;
     }
+
+    public List<String> readKeysFromMissingObjects_Fixed_Prim(List<String> objectIDs) {
+        List<String> resultSet = new ArrayList<>();
+
+        for (String objectIDString : objectIDs) {
+            try {
+                long objectID = Long.parseLong(objectIDString);
+                if (!IdentifiableManager.current().containsIdentifiable_primitive(objectID)) {
+                    resultSet.add(objectIDString);
+                }
+            } catch (NumberFormatException e) {
+                //ignore, not an objectID
+            }
+        }
+        return resultSet;
+    }
+
 
 
 }
