@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AutoBoxingBenchmark {
 
-    private static final int ITERATIONS_WARMUP  = 3;
+    private static final int ITERATIONS_WARMUP  = 5;
     private static final int ITERATIONS_MEASURE = 10;
 
     private static final int LOOP_SIZE = 50;
@@ -26,8 +26,12 @@ public class AutoBoxingBenchmark {
         Random random = new Random();
         private int randomInt = random.nextInt() + 500;
         private int randomInt2 = random.nextInt() + 500;
+        private int randomInt3 = random.nextInt() + 500;
+        private int randomInt4 = random.nextInt() + 500;
         private Integer randomInteger = Integer.valueOf(randomInt) + 500;
-        private Integer randomInteger2 = Integer.valueOf(randomInt) + 500;
+        private Integer randomInteger2 = Integer.valueOf(randomInt2) + 500;
+        private Integer randomInteger3 = Integer.valueOf(randomInt3) + 500;
+        private Integer randomInteger4 = Integer.valueOf(randomInt4) + 500;
 
         private Long totalLongObject = 245633L;
         private long totalLongPrim = 27L;
@@ -79,8 +83,38 @@ public class AutoBoxingBenchmark {
     @Warmup(iterations = ITERATIONS_WARMUP)
     @Measurement(iterations = ITERATIONS_MEASURE)
     @BenchmarkMode(Mode.AverageTime)
+    public Integer sum3Integers(AutoBoxingBenchmark.MyState myState) {
+        return myState.randomInteger + myState.randomInteger2 + myState.randomInteger3;
+    }
+
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @Fork(1)
+    @Warmup(iterations = ITERATIONS_WARMUP)
+    @Measurement(iterations = ITERATIONS_MEASURE)
+    @BenchmarkMode(Mode.AverageTime)
+    public Integer sum4Integers(AutoBoxingBenchmark.MyState myState) {
+        return myState.randomInteger + myState.randomInteger2 + myState.randomInteger3 + myState.randomInteger4;
+    }
+
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @Fork(1)
+    @Warmup(iterations = ITERATIONS_WARMUP)
+    @Measurement(iterations = ITERATIONS_MEASURE)
+    @BenchmarkMode(Mode.AverageTime)
     public Integer sumIntInteger(AutoBoxingBenchmark.MyState myState) {
         return myState.randomInteger + myState.randomInt;
+    }
+
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @Fork(1)
+    @Warmup(iterations = ITERATIONS_WARMUP)
+    @Measurement(iterations = ITERATIONS_MEASURE)
+    @BenchmarkMode(Mode.AverageTime)
+    public Integer sum2Int2Integer(AutoBoxingBenchmark.MyState myState) {
+        return myState.randomInteger + myState.randomInt + myState.randomInteger2 + myState.randomInt2;
     }
 
     @Benchmark
@@ -99,13 +133,32 @@ public class AutoBoxingBenchmark {
     @Warmup(iterations = ITERATIONS_WARMUP)
     @Measurement(iterations = ITERATIONS_MEASURE)
     @BenchmarkMode(Mode.AverageTime)
+    public int sum3IntPrimitives(AutoBoxingBenchmark.MyState myState) {
+        return myState.randomInt + myState.randomInt2 + myState.randomInt3;
+    }
+
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @Fork(1)
+    @Warmup(iterations = ITERATIONS_WARMUP)
+    @Measurement(iterations = ITERATIONS_MEASURE)
+    @BenchmarkMode(Mode.AverageTime)
+    public int sum4IntPrimitives(AutoBoxingBenchmark.MyState myState) {
+        return myState.randomInt + myState.randomInt2 + myState.randomInt3 + myState.randomInt4;
+    }
+
+    @Benchmark
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
+    @Fork(1)
+    @Warmup(iterations = ITERATIONS_WARMUP)
+    @Measurement(iterations = ITERATIONS_MEASURE)
+    @BenchmarkMode(Mode.AverageTime)
     public MutableIntList sumIntLoopPrimitiveIntList(AutoBoxingBenchmark.MyState myState) {
         MutableIntList li = new IntArrayList();
         for (int i = 1; i < LOOP_SIZE; i += 2)
             li.add(i);
         return li;
     }
-
 
 
     @Benchmark

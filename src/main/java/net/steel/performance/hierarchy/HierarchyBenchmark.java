@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HierarchyBenchmark {
 
-  private static final int ITERATIONS_WARMUP  = 2;
+  private static final int ITERATIONS_WARMUP  = 5;
   private static final int ITERATIONS_MEASURE = 10;
 
 
@@ -34,8 +34,12 @@ public class HierarchyBenchmark {
       typedComposite.clear();
       typedDirect.clear();
       for (int i = 0; i < size; i++) {
-        if (i % 2 == 0)
+        if (i % 4 == 0)
           polyMorphComposition.add(new DirectRectangle(5, i % 5000));
+        else if (i % 4 == 1)
+          polyMorphComposition.add(new AnotherCopyOfDirectRectangle(5, i % 5000));
+        else if (i % 4 == 2)
+          polyMorphComposition.add(new AnotherCopyOfDirectRectangle2(5, i % 5000));
         else
           polyMorphComposition.add(new CopyOfDirectRectangle(5, i % 5000));
 

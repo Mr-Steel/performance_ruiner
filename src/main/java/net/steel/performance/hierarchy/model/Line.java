@@ -5,15 +5,15 @@ package net.steel.performance.hierarchy.model;
  */
 public class Line extends AbstractShape {
 
-  private final float len;
+  private final float length;
 
-  public Line(float len) {
-    this.len = len;
+  public Line(float length) {
+    this.length = length;
   }
 
   @Override
   public float surface() {
-    return len;
+    return length;
   }
 }
 
